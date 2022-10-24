@@ -1,5 +1,9 @@
 from django.shortcuts import render
 
+from GamesPlay.game.models import Game
+
+
+
 
 def game_create(request):
     return render(request, 'game/create-game.html')
