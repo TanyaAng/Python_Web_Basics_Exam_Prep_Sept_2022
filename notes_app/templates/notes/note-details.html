@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+{% block base_content %}
+
+    <div class="body">
+        <h1>Note Details</h1>
+        <div class="note-details-container">
+            <h2>Today's Tasks</h2>
+            <img class="detail-img" src="https://www.freeiconspng.com/thumbs/tasks-icon/tasks-icon-9.png"
+                 alt="note-image"/>
+            <div>
+                <p>Content</p>
+            </div>
+            <p>
+                {{ note.content }}
+            </p>
+            <div class="right">
+                <a class="button edit" href="{% url 'note edit' id=note.pk %}">Edit</a>
+                <a class="button delete" href="{% url 'note delete' id=note.pk %}">Delete</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
