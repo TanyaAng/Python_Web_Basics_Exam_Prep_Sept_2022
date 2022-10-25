@@ -1,24 +1,31 @@
 from django.shortcuts import render, redirect
 
-from GamesPlay.app_profile.forms import CreateProfileForm, EditProfileForm
+from GamesPlay.app_profile.forms import CreateProfileForm, EditProfileForm, DeleteProfileForm
 from GamesPlay.common.helpers import get_profile, get_all_games
 
-profile = get_profile()
-games = get_all_games()
+
 
 
 def profile_details(request):
-    average_rating = sum(game.rating for game in games) / games.count()
+    profile = get_profile()
+    games = get_all_games()
+    if games:
+        count = games.count()
+        average_rating = sum(game.rating for game in games) / games.count()
+    else:
+        count = 0
+        average_rating = 0
     context = {
         'profile': profile,
         'games': games,
-        'games_count': games.count(),
+        'games_count': count,
         'average_rating': average_rating,
     }
     return render(request, 'profile/details-profile.html', context)
 
 
 def profile_create(request):
+    profile = get_profile()
     if request.method == 'GET':
         form = CreateProfileForm()
     else:
@@ -27,7 +34,7 @@ def profile_create(request):
             form.save()
             return redirect('home page')
     context = {
-        'profile': profile,
+        'profile':profile,
         'form': form,
     }
 
@@ -35,6 +42,7 @@ def profile_create(request):
 
 
 def profile_edit(request):
+    profile = get_profile()
     if request.method == 'GET':
         form = EditProfileForm(instance=profile)
     else:
@@ -50,10 +58,15 @@ def profile_edit(request):
 
 
 def profile_delete(request):
-    if request.method == 'POST':
-        profile.delete()
-        return redirect('profile details')
+    profile = get_profile()
+    if request.method == 'GET':
+        form = DeleteProfileForm(instance=profile)
+    else:
+        form = DeleteProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('home page')
     context = {
-        'profile': profile,
+        'form': form,
     }
     return render(request, 'profile/delete-profile.html', context)

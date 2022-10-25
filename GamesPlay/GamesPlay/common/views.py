@@ -2,10 +2,11 @@ from django.shortcuts import render
 
 from GamesPlay.common.helpers import get_profile, get_all_games
 
-profile = get_profile()
+
 
 
 def home_page(request):
+    profile = get_profile()
     context = {
         'profile': profile,
     }
@@ -13,6 +14,7 @@ def home_page(request):
 
 
 def dashboard(request):
+    profile = get_profile()
     context = {
         'profile': profile,
         'games': get_all_games(),
