@@ -9,6 +9,7 @@
 
                 <h1>Are you sure you want to delete your profile?</h1>
                 <form method="post" {% url 'profile delete' %}>
+                    {{ form }}
                     {% csrf_token %}
                     <button class="delete-profile" type="submit">Delete</button>
                 </form>

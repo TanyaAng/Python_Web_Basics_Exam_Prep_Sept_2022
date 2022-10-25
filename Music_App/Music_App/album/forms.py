@@ -30,8 +30,8 @@ class BaseAlbumForm(forms.ModelForm):
             'album_name': forms.TextInput(attrs={'placeholder': 'Album Name'}),
             'artist': forms.TextInput(attrs={'placeholder': 'Artist'}),
             'description': forms.Textarea(attrs={'placeholder': 'Description'}),
-            'image': forms.TextInput(attrs={'placeholder': 'Image URL'}),
-            'price': forms.TextInput(attrs={'placeholder': 'Price'}),
+            'image': forms.URLInput(attrs={'placeholder': 'Image URL'}),
+            'price': forms.NumberInput(attrs={'placeholder': 'Price'}),
         }
 
 
